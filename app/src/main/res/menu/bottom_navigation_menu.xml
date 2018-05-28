@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/item1"
+        android:title="@string/bottom_item1"
+        android:icon="@drawable/ic_home_black_24dp"/>
+    <item android:id="@+id/group_item1"
+        android:title="@string/bottom_item2"
+        android:icon="@drawable/ic_assessment_black_24dp" />
+    <item android:id="@+id/group_item2"
+        android:title="@string/bottom_item3"
+        android:icon="@drawable/ic_person_black_24dp" />
+</menu>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="action_settings">Settings</string>
+    <string name="bottom_item1">Log</string>
+    <string name="bottom_item2">Nutrition</string>
+    <string name="bottom_item3">Me</string>
+</resources>
