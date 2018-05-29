@@ -42,10 +42,11 @@ public class MainActivity extends AppCompatActivity {
         client.addExtractor("words");
         client.addExtractor("entities");
 
-        Response response = analyzeQuery("I ate 2 bowls of chicken tikka masala.");
+        Response response = analyzeQuery("I ate 2 bowls of chicken tikka masala and 3 coca colas for dinner.");
         List<Entity> foods = findFoods(response);
-        int count = findCount(response);
+        List<Word> quantities = findQuantities(response);
         MealType mealType = findMealType(response);
+        List<FoodEntry> foodEntries = createFoodEntries(foods, quantities, mealType);
     }
 
     protected Response analyzeQuery(String query) {
@@ -58,6 +59,41 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+    protected List<FoodEntry> createFoodEntries(List<Entity> foods, List<Word> quantities, MealType mealType)
+    {
+        List<FoodEntry> foodEntries = new ArrayList<FoodEntry>();
+        for(Entity foodEntity: foods) {
+            FoodEntry food = new FoodEntry();
+            food.setMealType(mealType);
+            food.setTime(new DateTime());
+            food.setQuantity(1);
+            food.setName(foodEntity.getEntityId().toString());
+            foodEntries.add(food);
+        }
+
+
+        if(quantities != null) {
+            int currentSmallestQuantityDistance = Integer.MAX_VALUE;
+            Entity closestFood = null;
+            for(Word quantity: quantities) {
+                for(Entity foodEntity: foods) {
+                    if (quantity.getStartingPos() < foodEntity.getStartingPos() && foodEntity.getStartingPos() - quantity.getStartingPos() < currentSmallestQuantityDistance) {
+                        currentSmallestQuantityDistance = foodEntity.getStartingPos() - quantity.getPosition();
+                        closestFood = foodEntity;
+                    }
+                }
+
+                for(FoodEntry food: foodEntries) {
+                    if(closestFood.getEntityId().equals(food.getName())) {
+                        food.setQuantity(Integer.parseInt(quantity.getToken()));
+                    }
+                }
+            }
+        }
+
+        return foodEntries;
     }
 
     protected ArrayList<Entity> findFoods(Response response) {
@@ -76,16 +112,17 @@ public class MainActivity extends AppCompatActivity {
         return foods;
     }
 
-    protected int findCount(Response response) {
+    protected static List<Word> findQuantities(Response response) {
         List<Word> words = response.getWords();
+        List<Word> quantities = new ArrayList<Word>();
 
         for(Word word: words){
             if(word.getPartOfSpeech().contains("CD")){
-                return Integer.parseInt(word.getToken());
+                quantities.add(word);
             }
         }
 
-        return 1;
+        return quantities;
     }
 
     protected MealType findMealType(Response response) {
