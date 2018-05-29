@@ -31,4 +31,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     compile group: 'com.textrazor', name:'textrazor', version:'1.0.9'
+    compile 'joda-time:joda-time:2.9.4'
 }
