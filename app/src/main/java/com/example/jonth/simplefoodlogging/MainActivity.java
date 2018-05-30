@@ -3,6 +3,8 @@ package com.example.jonth.simplefoodlogging;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.textrazor.AnalysisException;
 import com.textrazor.NetworkException;
@@ -22,9 +24,12 @@ import java.util.List;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
 
     private TextRazor client;
-
     public enum MealType {
         BREAKFAST, LUNCH, DINNER, SNACK, NONE
     }
@@ -36,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.breakfast_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        // mAdapter = new MyAdapter(myDataset);
+        mRecyclerView.setAdapter(mAdapter);
 
         // Initialize TextRazor
         client = new TextRazor(BuildConfig.ApiKey);

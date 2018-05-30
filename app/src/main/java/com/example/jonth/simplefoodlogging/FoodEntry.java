@@ -26,7 +26,9 @@ public class FoodEntry
 
     private String name;
     private DateTime time;
+    private float duration;
     private int quantity;
+    private String nutrition;
     private MainActivity.MealType mealType;
     private String emotion;
 
