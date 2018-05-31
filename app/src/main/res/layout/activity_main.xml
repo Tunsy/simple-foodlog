@@ -20,25 +20,48 @@
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/breakfast_text_view"
-            android:layout_width="153dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/breakfasts"
-            android:textAlignment="viewStart"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/breakfast_recycler_view"
-            android:layout_width="351dp"
-            android:layout_height="42dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="35dp"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/food_entry_view" />
+            <TextView
+                android:id="@+id/breakfast_text_view"
+                android:layout_width="153dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/breakfasts"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingBottom="3dp"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/breakfast_linear_layout_view"
+                android:layout_width="335dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical"
+                android:scrollbars="vertical"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/breakfast_text_view">
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/add_breakfast"
+                android:layout_width="23dp"
+                android:layout_height="24dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="28dp"
+                android:background="@android:color/transparent"
+                android:tint="@color/materialGray"
+                app:srcCompat="@drawable/ic_add_circle_outline_black_24dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -55,25 +78,44 @@
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toBottomOf="@+id/breakfast_card_view">
 
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <TextView
             android:id="@+id/lunch_text_view"
             android:layout_width="153dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:text="@string/lunch"
             android:textAlignment="viewStart"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingBottom="3dp"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/lunch_recycler_view"
-            android:layout_width="351dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="35dp"
+        <LinearLayout
+            android:id="@+id/lunch_linear_layout_view"
+            android:layout_width="335dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
             android:scrollbars="vertical"
-            tools:listitem="@layout/food_entry_view" />
+            card_view:layout_constraintEnd_toEndOf="parent">
+        </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/add_lunch"
+                android:layout_width="23dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="28dp"
+                android:background="@android:color/transparent"
+                android:tint="@color/materialGray"
+                app:srcCompat="@drawable/ic_add_circle_outline_black_24dp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="6dp" />
+        </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -90,56 +132,49 @@
         card_view:layout_constraintStart_toStartOf="parent"
         card_view:layout_constraintTop_toBottomOf="@+id/lunch_card_view">
 
-        <TextView
-            android:id="@+id/dinner_text_view"
-            android:layout_width="153dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/dinner"
-            android:textAlignment="viewStart"
-            android:textSize="18sp"
-            android:textStyle="bold" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/dinner_recycler_view"
-            android:layout_width="351dp"
-            android:layout_height="51dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="35dp"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/food_entry_view" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dinner_text_view"
+                android:layout_width="153dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/dinner"
+                android:textAlignment="viewStart"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingBottom="3dp"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/dinner_linear_layout_view"
+                android:layout_width="335dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:orientation="vertical"
+                android:scrollbars="vertical"
+                card_view:layout_constraintEnd_toEndOf="parent">
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/add_dinner"
+                android:layout_width="23dp"
+                android:layout_height="24dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="28dp"
+                android:background="@android:color/transparent"
+                android:tint="@color/materialGray"
+                app:srcCompat="@drawable/ic_add_circle_outline_black_24dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
-
-    <!--<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"-->
-        <!--android:id="@+id/lunch_card_view"-->
-        <!--android:layout_width="351dp"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginTop="24dp"-->
-        <!--card_view:cardCornerRadius="4dp"-->
-        <!--card_view:layout_constraintEnd_toEndOf="parent"-->
-        <!--card_view:layout_constraintStart_toStartOf="parent"-->
-        <!--card_view:layout_constraintTop_toTopOf="parent">-->
-
-        <!--<android.support.v7.widget.RecyclerView-->
-            <!--android:id="@+id/my_recycler_view"-->
-            <!--android:layout_width="331dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:scrollbars="vertical" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/my_text_view"-->
-            <!--android:layout_width="153dp"-->
-            <!--android:layout_height="match_parent" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/info_text"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent" />-->
-    <!--</android.support.v7.widget.CardView>-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -165,6 +200,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
+        app:menu="@menu/bottom_navigation_menu"
+        />
 
 </android.support.constraint.ConstraintLayout>

@@ -5,6 +5,11 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.textrazor.AnalysisException;
 import com.textrazor.NetworkException;
@@ -42,23 +47,29 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.breakfast_recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        // mAdapter = new MyAdapter(myDataset);
-        mRecyclerView.setAdapter(mAdapter);
-
         // Initialize TextRazor
         client = new TextRazor(BuildConfig.ApiKey);
         client.addExtractor("words");
         client.addExtractor("entities");
 
-        Response response = analyzeQuery("I ate 2 bowls of chicken tikka masala and 3 coca colas for dinner.");
+        Response response = analyzeQuery("I ate 2 bowls of chicken tikka masala and 3 coca colas for and 2 sausages for dinner.");
         List<Entity> foods = findFoods(response);
         List<Word> quantities = findQuantities(response);
         MealType mealType = findMealType(response);
         List<FoodEntry> foodEntries = createFoodEntries(foods, quantities, mealType);
+
+
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.breakfast_linear_layout_view);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        for (FoodEntry item : foodEntries) {
+            View view  = inflater.inflate(R.layout.food_entry_view, linearLayout, false);
+            TextView foodname = (TextView) view.findViewById(R.id.food_name_entry);
+            TextView foodQuantity = (TextView) view.findViewById(R.id.food_quantity);
+            foodname.setText(item.getName());
+            foodQuantity.setText(Integer.toString(item.getQuantity()) + " servings");
+            // set item content in view
+            linearLayout.addView(view);
+        }
     }
 
     protected Response analyzeQuery(String query) {

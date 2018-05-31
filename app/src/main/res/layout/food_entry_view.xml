@@ -21,15 +21,18 @@
         android:layout_alignStart="@+id/food_name_entry"
         android:layout_below="@+id/food_name_entry"
         android:text="1 serving"
+        android:paddingBottom="3dp"
         android:textSize="12sp" />
 
     <ImageButton
         android:id="@+id/food_delete_entry"
-        android:layout_width="33dp"
+        android:layout_width="34dp"
         android:layout_height="34dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/textView"
+        android:layout_alignTop="@+id/food_edit_entry"
         android:layout_marginEnd="12dp"
+        android:background="@android:color/transparent"
+        android:tint="@color/materialGray"
         app:srcCompat="@drawable/ic_delete_black_24dp" />
 
     <ImageButton
@@ -39,5 +42,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="59dp"
+        android:background="@android:color/transparent"
+        android:tint="@color/materialGray"
         app:srcCompat="@drawable/ic_edit_black_24dp" />
 </RelativeLayout>
