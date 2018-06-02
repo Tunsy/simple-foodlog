@@ -1,5 +1,6 @@
 package com.example.jonth.simplefoodlogging;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -51,18 +52,44 @@ public class MainActivity extends AppCompatActivity {
         client = new TextRazor(BuildConfig.ApiKey);
         client.addExtractor("words");
         client.addExtractor("entities");
+        handleQuery("I ate 2 bowls of chicken tikka masala and 3 coca colas for dinner.");
+        handleQuery("I ate 2 pizzas and an egg for breakfast.");
 
-        Response response = analyzeQuery("I ate 2 bowls of chicken tikka masala and 3 coca colas for and 2 sausages for dinner.");
+//
+//        Dialog dialog=new Dialog(this,android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+//        dialog.setContentView(R.layout.frame_help);
+//        dialog.show();
+    }
+
+    protected void handleQuery(String query) {
+        Response response = analyzeQuery(query);
         List<Entity> foods = findFoods(response);
         List<Word> quantities = findQuantities(response);
         MealType mealType = findMealType(response);
         List<FoodEntry> foodEntries = createFoodEntries(foods, quantities, mealType);
+        displayMeals(foodEntries);
+    }
 
+    protected void displayMeals(List<FoodEntry> foodEntries) {
+        LinearLayout breakfastLayout = (LinearLayout) findViewById(R.id.breakfast_linear_layout_view);
+        LinearLayout lunchLayout = (LinearLayout) findViewById(R.id.lunch_linear_layout_view);
+        LinearLayout dinnerLayout = (LinearLayout) findViewById(R.id.dinner_linear_layout_view);
 
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.breakfast_linear_layout_view);
         LayoutInflater inflater = LayoutInflater.from(this);
         for (FoodEntry item : foodEntries) {
-            View view  = inflater.inflate(R.layout.food_entry_view, linearLayout, false);
+            View view;
+            LinearLayout linearLayout;
+            if (item.getMealType() == MealType.BREAKFAST) {
+                view  = inflater.inflate(R.layout.food_entry_view, breakfastLayout, false);
+                linearLayout = breakfastLayout;
+            } else if (item.getMealType() == MealType.LUNCH) {
+                view  = inflater.inflate(R.layout.food_entry_view, lunchLayout, false);
+                linearLayout = lunchLayout;
+            } else {
+                view  = inflater.inflate(R.layout.food_entry_view, dinnerLayout, false);
+                linearLayout = dinnerLayout;
+            }
+
             TextView foodname = (TextView) view.findViewById(R.id.food_name_entry);
             TextView foodQuantity = (TextView) view.findViewById(R.id.food_quantity);
             foodname.setText(item.getName());
@@ -157,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (stringContainsItemFromList("/dining/cuisine", itemTypes) || stringContainsItemFromList("/travel/accommodation_feature", itemTypes)) {
                 try{
-                    return MealType.valueOf(keyword.getEntityId());
+                    return MealType.valueOf(keyword.getEntityId().toUpperCase());
                 }catch(IllegalArgumentException ex){
                     continue;
                 }
